@@ -1,0 +1,20 @@
+public class Estudiante {
+    //Atributos
+    private String legajo;
+    private String nombre;
+
+    //Constructor
+    public Estudiante (String legajo, String nombre){
+        this.legajo = legajo;
+        this.nombre = nombre;
+    }
+
+    //Metodos
+    public String getLegajo(){
+        return legajo;
+    }
+
+    public String getNombre(){
+        return nombre;
+    }
+}
