@@ -1,4 +1,9 @@
-public class Taller extends Actividad {
+package actividades;
+
+import certificacion.Certificable;
+import modelo.Estudiante;
+
+public class Taller extends Actividad implements Certificable {
 
     //Atributos
     private boolean requiereNotebook;
@@ -22,5 +27,13 @@ public class Taller extends Actividad {
     @Override
     public String getTipo(){
         return "Taller";
+    }
+
+    @Override
+    public String generarCertificado(Estudiante estudiante) {
+        return "Certificado de asistencia - Alumno: "
+                + estudiante.getNombre()
+                + " - Taller: "
+                + getTipo();
     }
 }

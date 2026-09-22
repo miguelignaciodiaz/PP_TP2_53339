@@ -1,3 +1,5 @@
+package actividades;
+
 public class Charla extends Actividad {
 
     //Atributos

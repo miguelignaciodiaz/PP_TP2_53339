@@ -1,9 +1,18 @@
+package modelo;
+
+import actividades.Actividad;
+import actividades.Charla;
+import actividades.Curso;
+import actividades.Taller;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
-public class EventoUniversitario {
+public class EventoUniversitario implements Serializable {
+
     // Atributos
     private final String id;
     private String titulo;
@@ -66,14 +75,44 @@ public class EventoUniversitario {
                     Actividad taller = new Taller(id, titulo, cupo, requiereNotebook);
                     this.actividades.add(taller);
                     break;
+                case "Curso":
+                    System.out.println("Ingrese el nivel");
+                    int nivel = Integer.parseInt(scanner.nextLine());
+
+                    Actividad curso = new Curso(id, titulo, cupo, nivel);
+                    this.actividades.add(curso);
+                    break;
                 default:
                     System.out.println("Error: Tipo de actividad no reconocido");
             }
     }
 
-
     public List<Actividad> getActividades(){
         return Collections.unmodifiableList(actividades);
+    }
+
+    public <T extends Actividad> List<T> filtrarActividadesPorTipo(Class<T> tipo) {
+
+        List<T> resultado = new ArrayList<>();
+
+        for (Actividad actividad : actividades) {
+
+            if (tipo.isInstance(actividad)) {
+                resultado.add(tipo.cast(actividad));
+            }
+        }
+        return resultado;
+    }
+
+    public double calcularCostoMateriales(List<? extends Actividad> actividades){
+
+        double costoTotal = 0.0;
+
+        for (Actividad actividad : actividades){
+            costoTotal = costoTotal + actividad.calcularCostoMateriales();
+        }
+
+        return costoTotal;
     }
 
     public void mostrarDatos() {
@@ -96,5 +135,9 @@ public class EventoUniversitario {
 
     public static int getCantidadEventos(){
         return cantidadEventos;
+    }
+
+    public String getTitulo(){
+        return titulo;
     }
 }
